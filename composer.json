@@ -69,6 +69,17 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "develop": [
+            "composer dump-autoload --classmap-authoritative --ansi",
+            "composer install",
+            "composer dump-autoload --classmap-authoritative --ansi",
+            "php bin/console doctrine:cache:clear-metadata",
+            "php bin/console cache:clear --no-warmup -e dev --ansi",
+            "php bin/console cache:warmup",
+            "php bin/console doctrine:schema:update --force",
+            "npm install",
+            "npm run dev"
         ]
     },
     "conflict": {

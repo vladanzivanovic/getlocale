@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="py-5 text-center">
+            <h2>Reservation form</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 order-md-1">
+                <form class="needs-validation" id="reservationForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="inputEmail">Email address</label>
+                            <input type="email" class="form-control" id="inputEmail" placeholder="" value="" name="email" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="inputDate">Date</label>
+                            <input type="date" class="form-control" id="inputDate" placeholder="" value="" name="date" required>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="inputComment">Comment</label>
+                        <textarea class="form-control" id="inputComment" name="comment" placeholder="Add your comment..."></textarea>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <hr class="mb-4">
+                    <button id="reservationButton" class="btn btn-primary btn-lg btn-block" type="button">Send reservation</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
