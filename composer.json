@@ -72,13 +72,14 @@
             "@auto-scripts"
         ],
         "develop": [
-            "composer dump-autoload --classmap-authoritative --ansi",
+            "composer dump-autoload",
             "composer install",
-            "composer dump-autoload --classmap-authoritative --ansi",
+            "composer dump-autoload",
             "php bin/console doctrine:cache:clear-metadata",
             "php bin/console cache:clear --no-warmup -e dev --ansi",
             "php bin/console cache:warmup",
             "php bin/console doctrine:schema:update --force",
+            "php bin/console doctrine:migrations:migrate --no-interaction --ansi",
             "npm install",
             "npm run dev"
         ]

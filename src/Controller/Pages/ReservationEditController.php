@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Pages\Customer;
+namespace App\Controller\Pages;
 
 use App\Entity\Reservation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -36,6 +36,7 @@ class ReservationEditController extends AbstractController
         return [
             'email' => $reservation->getEmail(),
             'comment' => $reservation->getComment(),
+            'admincomment' => $reservation->getAdminComment(),
             'date' => $reservation->getDate()->format('Y-m-d'),
         ];
     }
