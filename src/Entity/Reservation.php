@@ -21,6 +21,13 @@ class Reservation
     private $id;
 
     /**
+     * @var User
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn()
+     */
+    private $user;
+
+    /**
      * @var string|null
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank(message="Mandatory field", groups={"ReservationEdit"})
@@ -107,6 +114,26 @@ class Reservation
     public function setCode(string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return Reservation
+     */
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

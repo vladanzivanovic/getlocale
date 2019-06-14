@@ -2,8 +2,13 @@ import ReservationEdit from "./ReservationEditController";
 
 let routes = [
     {
-        name: 'reservation_edit',
+        name: 'reservation_add',
         path: '/dashboard/reservation/new',
+        controller: ReservationEdit,
+    },
+    {
+        name: 'reservation_edit',
+        path: '/dashboard/reservation/edit/:code',
         controller: ReservationEdit,
     },
 ];

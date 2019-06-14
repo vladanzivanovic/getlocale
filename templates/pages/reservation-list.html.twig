@@ -9,29 +9,23 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Email</th>
+                    <th scope="col">User</th>
                     <th scope="col">Comment</th>
                     <th scope="col">Reservation date</th>
+                    <th scope="col">Code</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                </tr>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                </tr>
+                {% for reservation in reservations %}
+                    <tr>
+                        <th scope="row">{{ reservation['id'] }}</th>
+                        <td>{{ reservation['email'] }}</td>
+                        <td>{{ reservation['user_email'] }}</td>
+                        <td>{{ reservation['comment'] }}</td>
+                        <td>{{ reservation['date'] }}</td>
+                        <td><a href="{{ path('edit_reservation_form_page', {code: reservation['code']}) }}"> {{ reservation['code'] }}</a></td>
+                    </tr>
+                {% endfor %}
                 </tbody>
             </table>        </div>
 

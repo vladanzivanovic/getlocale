@@ -5,6 +5,8 @@ namespace App\Controller\Api\Customer;
 use App\Components\Parser\ParserInterface;
 use App\Components\Reservation\ReservationEditHandler;
 use App\Entity\Reservation;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +36,7 @@ class ReservationEditController extends AbstractController
 
     /**
      * @Route("/reservation/add", methods={"POST"}, name="api_reservation_add")
+     * @IsGranted("ROLE_USER")
      *
      * @param Request $request
      *
@@ -41,9 +44,10 @@ class ReservationEditController extends AbstractController
      */
     public function addReservation(Request $request): JsonResponse
     {
+        $user = $this->getUser();
         $parsedData = $this->parser->parse($request->request);
 
-        $response = $this->editHandler->addReservation($parsedData);
+        $response = $this->editHandler->addReservation($user, $parsedData);
 
         if (is_array($response)) {
             return $this->json($response, JsonResponse::HTTP_BAD_REQUEST);
@@ -54,6 +58,7 @@ class ReservationEditController extends AbstractController
 
     /**
      * @Route("/reservation/edit/{code}", methods={"POST"}, name="api_reservation_update")
+     * @Security("is_granted('CUSTOMER_EDIT_PRIVILEGE', reservation)")
      *
      * @param Reservation $reservation
      * @param Request     $request

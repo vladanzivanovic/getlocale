@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Reservation;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,32 +20,31 @@ class ReservationRepository extends ExtendedEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
-    // /**
-    //  * @return Reservation[] Returns an array of Reservation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param User $user
+     * @param bool $isAdmin
+     *
+     * @return array
+     */
+    public function getReservations(User $user, bool $isAdmin)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $query = $this->createQueryBuilder('r')
+            ->select(
+                'r.id',
+                'r.email',
+                'r.comment',
+                'r.code',
+                'DATE_FORMAT(r.date, \'%d/%m/%Y\') as date',
+                'user.email as user_email'
+            )
+            ->join('r.user', 'user')
+            ->orderBy('r.date', 'DESC');
 
-    /*
-    public function findOneBySomeField($value): ?Reservation
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if (false === $isAdmin) {
+            $query->where('r.user = :user')
+                ->setParameter('user', $user);
+        }
+
+        return $query->getQuery()->getArrayResult();
     }
-    */
 }

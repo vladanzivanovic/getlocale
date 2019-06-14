@@ -19,7 +19,7 @@ class DateInAdvanceValidator extends ConstraintValidator
 
         if (!$isInAdvance || ($isInAdvance && $days < $constraint->days)) {
             $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ string }}', $constraint->days)
+                ->setParameter('{{ days }}', $constraint->days)
                 ->addViolation();
         }
     }

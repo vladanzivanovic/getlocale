@@ -4,6 +4,7 @@ namespace App\Components\Reservation;
 
 use App\Components\Helper\RandomCodeGenerator;
 use App\Entity\Reservation;
+use App\Entity\User;
 use App\Repository\ReservationRepository;
 use App\Validator\ValidatorParser;
 use \DateTime;
@@ -32,17 +33,20 @@ class ReservationEditHandler
     }
 
     /**
+     * @param User  $user
      * @param array $data
      *
      * @return array|null
      */
-    public function addReservation(array $data): ?array
+    public function addReservation(User $user, array $data): ?array
     {
         $reservation = new Reservation();
         $reservation->setEmail($data['email'])
             ->setComment($data['comment'])
             ->setDate(new DateTime($data['date']))
-            ->setCode($this->codeGenerator->random());
+            ->setCode($this->codeGenerator->random())
+            ->setUser($user)
+        ;
 
         $errors = $this->validate($reservation);
 

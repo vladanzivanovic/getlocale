@@ -14,5 +14,5 @@ class DateInAdvance extends Constraint
 {
     public $days;
 
-    public $message = "Date should be {{ days }} in advance";
+    public $message = "Date should be {{ days }} days in advance";
 }

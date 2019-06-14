@@ -10,11 +10,18 @@ class ReservationEditController {
         this.registerEvents();
     }
 
-    addReservation() {
-        let form = this.mapper.form.serializeArray();
+    sendReservation() {
+        const form = this.mapper.form.serializeArray();
+        const code = this.mapper.code.val();
+        let url = '/api/reservation/add';
+
         this.errorService.resetErrors();
 
-        $.post('/api/reservation/add', form)
+        if (code) {
+            url = `/api/reservation/edit/${code}`;
+        }
+
+        $.post(url, form)
             .then(response => {
                 console.log(response);
             })
@@ -27,7 +34,7 @@ class ReservationEditController {
 
     registerEvents() {
         this.mapper.button.on('click', e => {
-            this.addReservation();
+            this.sendReservation();
         });
     }
 }
