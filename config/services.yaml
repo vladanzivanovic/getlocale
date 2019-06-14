@@ -3,8 +3,13 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+imports:
+    - { resource: '../vendor/beberlei/doctrineextensions/config/mysql.yml' }
+
 parameters:
     locale: 'en'
+    admin_email: '%env(ADMIN_EMAIL)%'
+    app_name: 'Get Locale'
 
 services:
     # default configuration for services in *this* file
@@ -26,3 +31,19 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    app.auth_handler:
+        class: App\Handler\AuthenticationHandler
+        arguments:
+            - "@security.token_storage"
+            - "@session"
+    App\Repository\ExtendedEntityRepository:
+        class: App\Repository\ExtendedEntityRepository
+        arguments:
+            $entityClass: ~
+
+    App\EventListeners\ReservationListener:
+        class: App\EventListeners\ReservationListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postUpdate }

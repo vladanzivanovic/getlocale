@@ -1,3 +1,20 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+app.user_security_login:
+  path:      /
+  controller: App\Controller\Pages\LoginController::loginAction
+  methods: GET
+
+app.logout:
+  path: /logout
+
+app.login_user_action:
+  path: /do-login
+  methods: ['POST']
+
+app.api_routes:
+  resource: '../src/Controller/Api/'
+  type:     annotation
+  prefix:   /api

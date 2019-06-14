@@ -1,0 +1,31 @@
+{% extends 'email/base.html.twig' %}
+
+{% block body %}
+    {% set reservation = templateData['reservation'] %}
+    {% set differences = templateData['reservation_diff'] %}
+    <h1>Reservation update info</h1>
+
+    <p>Customer with email <b>{{ reservation.email }}</b> has made an update to the reservation.</p>
+
+    <ul>
+        <li>Email: {{ reservation.email }}</li>
+        <li>Date: {{ reservation.date| date('d.m.Y') }}</li>
+        <li>Code: {{ reservation.code }}</li>
+    </ul>
+
+    <p>{{ reservation.comment }}</p>
+
+    <h2>Changes:</h2>
+
+    <ul>
+        {% for field, diff in differences %}
+            {% if field != 'date' %}
+                <li>{{ field|capitalize }}: {{ diff[0] }}(old) - {{ diff[1] }}(new)</li>
+            {% else %}
+                {% if diff[0]|has_date_diff(diff[1]) %}
+                    <li>{{ field|capitalize }}: {{ diff[0]|date('d.m.Y') }}(old) - {{ diff[1]|date('d.m.Y') }}(new)</li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endblock %}

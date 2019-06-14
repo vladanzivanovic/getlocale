@@ -1,0 +1,16 @@
+{% extends 'email/base.html.twig' %}
+
+{% block body %}
+    {% set reservation = templateData['reservation'] %}
+    <h1>Reservation info</h1>
+
+    <p>Customer with email <b>{{ reservation.email }}</b> send you a reservation.</p>
+
+    <ul>
+        <li>Email: {{ reservation.email }}</li>
+        <li>Date: {{ reservation.date| date('d.m.Y') }}</li>
+        <li>Code: {{ reservation.code }}</li>
+    </ul>
+
+    <p>{{ reservation.comment }}</p>
+{% endblock %}
