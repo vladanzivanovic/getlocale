@@ -4,9 +4,11 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ path('reservation_list_page') }}">Dashboard <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ path('add_reservation_form_page') }}">Add reservation</a>
-            </li>
+            {% if app.user is not null and false == isAdmin %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('add_reservation_form_page') }}">Add reservation</a>
+                </li>
+            {% endif %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('app.logout') }}">Logout</a>
             </li>

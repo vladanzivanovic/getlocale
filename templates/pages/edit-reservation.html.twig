@@ -12,6 +12,7 @@
                 <form class="needs-validation" id="reservationForm">
                     <div class="row">
                         <input type="hidden" id="inputCode" name="code" value="{{ app.request.attributes.get('code') }}">
+                        <input type="hidden" id="inputCsrf" name="csrf" value="{{ csrf_token('edit-reservation') }}">
                         <div class="col-md-6 mb-3">
                             <label for="inputEmail">Email address</label>
                             <input type="email" class="form-control" id="inputEmail" placeholder="" value="{{ email ?? null }}" name="email" required>
@@ -29,6 +30,13 @@
                         <textarea class="form-control" id="inputComment" name="comment" placeholder="Add your comment...">{{ comment ?? null }}</textarea>
                         <div class="invalid-feedback"></div>
                     </div>
+
+                    {% if isAdmin %}
+                        <div class="mb-3">
+                            <label for="inputAdminComment">Admin Comment</label>
+                            <textarea class="form-control" id="inputAdminComment" name="admincomment" placeholder="Add your comment...">{{ admincomment ?? null }}</textarea>
+                        </div>
+                    {% endif %}
                     <hr class="mb-4">
                     <button id="reservationButton" class="btn btn-primary btn-lg btn-block" type="button">Send reservation</button>
                 </form>

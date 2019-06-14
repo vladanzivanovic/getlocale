@@ -69,7 +69,8 @@ class ReservationEditHandler
     {
         $reservation->setEmail($data['email'])
             ->setComment($data['comment'])
-            ->setDate(new DateTime($data['date']));
+            ->setDate(new DateTime($data['date']))
+            ->setAdminComment($data['admincomment']);
 
         $errors = $this->validate($reservation);
 

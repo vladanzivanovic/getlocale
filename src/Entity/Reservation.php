@@ -57,6 +57,24 @@ class Reservation
      */
     private $code;
 
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime")
+     */
+    private $modifiedAt;
+
+    /**
+     * @var string|null
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $adminComment;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +152,66 @@ class Reservation
     public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getAdminComment(): ?string
+    {
+        return $this->adminComment;
+    }
+
+    /**
+     * @param string|null $adminComment
+     *
+     * @return Reservation
+     */
+    public function setAdminComment(?string $adminComment): self
+    {
+        $this->adminComment = $adminComment;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime $createdAt
+     *
+     * @return Reservation
+     */
+    public function setCreatedAt(DateTime $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getModifiledAt(): DateTime
+    {
+        return $this->modifiedAt;
+    }
+
+    /**
+     * @param DateTime $modifiedAt
+     *
+     * @return Reservation
+     */
+    public function setModifiedAt(DateTime $modifiedAt): self
+    {
+        $this->modifiedAt = $modifiedAt;
 
         return $this;
     }

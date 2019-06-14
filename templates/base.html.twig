@@ -6,15 +6,18 @@
         {% block stylesheets %}
             <link rel="stylesheet" type="text/css" href="{{ asset('build/css/app.css') }}"/>
         {% endblock %}
-        <script src="{{ preload(asset('build/runtime.js'), {as: 'script'}) }}"></script>
-        <script type="text/javascript" src="{{ preload(asset('build/vendors~js/app.js'), {as: 'script'}) }}"></script>
-        <script type="text/javascript" src="{{ preload(asset('build/js/app.js'), {as: 'script'}) }}"></script>
     </head>
     <body>
+        {% set isAdmin = app.user is not null and app.user.role('ROLE_ADMIN') ? 1 : 0 %}
         {% include 'components/header.html.twig' %}
         {% block body %}{% endblock %}
-{#        {% block javascripts %}#}
-
-{#        {% endblock %}#}
+        {% block javascripts %}
+            <script>
+                const IS_ADMIN = {{ isAdmin }};
+            </script>
+            <script src="{{ preload(asset('build/runtime.js'), {as: 'script'}) }}"></script>
+            <script type="text/javascript" src="{{ preload(asset('build/vendors~js/app.js'), {as: 'script'}) }}"></script>
+            <script type="text/javascript" src="{{ preload(asset('build/js/app.js'), {as: 'script'}) }}"></script>
+        {% endblock %}
     </body>
 </html>

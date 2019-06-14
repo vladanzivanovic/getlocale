@@ -33,6 +33,7 @@ class ReservationRepository extends ExtendedEntityRepository
                 'r.id',
                 'r.email',
                 'r.comment',
+                'r.adminComment as admin_comment',
                 'r.code',
                 'DATE_FORMAT(r.date, \'%d/%m/%Y\') as date',
                 'user.email as user_email'

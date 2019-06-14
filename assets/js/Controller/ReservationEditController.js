@@ -13,17 +13,18 @@ class ReservationEditController {
     sendReservation() {
         const form = this.mapper.form.serializeArray();
         const code = this.mapper.code.val();
-        let url = '/api/reservation/add';
+        const urlPrefix = IS_ADMIN ? '/admin' : '';
+        let url = `/api/reservation/add`;
 
         this.errorService.resetErrors();
 
         if (code) {
-            url = `/api/reservation/edit/${code}`;
+            url = `/api${urlPrefix}/reservation/edit/${code}`;
         }
 
         $.post(url, form)
             .then(response => {
-                console.log(response);
+                location.href = '/dashboard';
             })
             .fail(error => {
                 let errors = error.responseJSON;
