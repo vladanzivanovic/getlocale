@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Api\Customer;
+namespace App\Controller\Api\Admin;
 
 use App\Components\Parser\ParserInterface;
 use App\Components\Reservation\ReservationEditHandler;
@@ -35,8 +35,8 @@ class ReservationEditController extends AbstractController
     }
 
     /**
-     * @Route("/reservation/add", methods={"POST"}, name="api_reservation_add")
-     * @IsGranted("ROLE_USER")
+     * @Route("/admin/reservation/add", methods={"POST"}, name="api_reservation_add")
+     * @IsGranted("ROLE_ADMIN")
      *
      * @param Request $request
      *
@@ -57,8 +57,8 @@ class ReservationEditController extends AbstractController
     }
 
     /**
-     * @Route("/reservation/edit/{code}", methods={"POST"}, name="api_reservation_update")
-     * @Security("is_granted('CUSTOMER_EDIT_PRIVILEGE', reservation)")
+     * @Route("/admin/reservation/edit/{code}", methods={"POST"}, name="api_admin_reservation_update")
+     * @IsGranted("ROLE_ADMIN")
      *
      * @param Reservation $reservation
      * @param Request     $request
@@ -72,7 +72,6 @@ class ReservationEditController extends AbstractController
         if (!$this->isCsrfTokenValid('edit-reservation', $parsedData['csrfToken'])) {
             return $this->json([], JsonResponse::HTTP_FORBIDDEN);
         }
-
         $response = $this->editHandler->editReservation($reservation, $parsedData);
 
         if (is_array($response)) {

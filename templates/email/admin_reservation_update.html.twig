@@ -19,9 +19,12 @@
 
     <ul>
         {% for field, diff in differences %}
-            {% if field != 'date' %}
+
+            {% if field != 'date' and diff[0]|length > 0 %}
                 <li>{{ field|capitalize }}: {{ diff[0] }}(old) - {{ diff[1] }}(new)</li>
-            {% else %}
+            {% endif %}
+
+            {% if field == 'date' %}
                 {% if diff[0]|has_date_diff(diff[1]) %}
                     <li>{{ field|capitalize }}: {{ diff[0]|date('d.m.Y') }}(old) - {{ diff[1]|date('d.m.Y') }}(new)</li>
                 {% endif %}

@@ -11,6 +11,9 @@
                     <th scope="col">Email</th>
                     <th scope="col">User</th>
                     <th scope="col">Comment</th>
+                    {% if isAdmin %}
+                        <th scope="col">Admin Comment</th>
+                    {% endif %}
                     <th scope="col">Reservation date</th>
                     <th scope="col">Code</th>
                 </tr>
@@ -22,6 +25,9 @@
                         <td>{{ reservation['email'] }}</td>
                         <td>{{ reservation['user_email'] }}</td>
                         <td>{{ reservation['comment'] }}</td>
+                        {% if isAdmin %}
+                            <td>{{ reservation['admin_comment'] }}</td>
+                        {% endif %}
                         <td>{{ reservation['date'] }}</td>
                         <td><a href="{{ path('edit_reservation_form_page', {code: reservation['code']}) }}"> {{ reservation['code'] }}</a></td>
                     </tr>

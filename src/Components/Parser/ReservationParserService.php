@@ -20,6 +20,8 @@ class ReservationParserService implements ParserInterface
             'email' => $parameterBag->get('email'),
             'comment' => $parameterBag->get('comment'),
             'date' => $parameterBag->get('date'),
+            'admincomment' => $parameterBag->get('admincomment'),
+            'csrfToken' => $parameterBag->get('csrf'),
         ];
     }
 }
